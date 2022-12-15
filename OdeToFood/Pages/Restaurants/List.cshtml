@@ -1,0 +1,54 @@
+﻿@page
+@model OdeToFood.Pages.Restaurants.ListModel
+@{
+    ViewData["Title"] = "Restaurants";
+}
+
+<h1>Restaurants</h1>
+
+<form method="get" action="/Restaurants/List">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" name="searchTerm"/>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+@*
+<table class="table">
+    @foreach (var restaurant in Model.Restaurants)
+    {
+        <tr>
+            <td>@restaurant.Name</td>
+            <td>@restaurant.Location</td>
+            <td>@restaurant.Cuisine</td>
+            <td>
+                <a class="btn btn-lg" asp-page="./Detail" asp-route-restaurantId="@restaurant.Id">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+                <a class="btn btn-lg" asp-page="./Edit" asp-route-restaurantId="@restaurant.Id">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <a class="btn btn-lg" asp-page="./Delete" asp-route-restaurantId="@restaurant.Id">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</table>*@
+
+@foreach (var restaurant in Model.Restaurants)
+{
+    <partial name="_Summary" model="restaurant"/>
+}
+
+<a class="btn btn-primary" asp-page="./Edit">Add New</a>
+<br/><br/>
+
+@section footer{
+    @Model.Message
+}
