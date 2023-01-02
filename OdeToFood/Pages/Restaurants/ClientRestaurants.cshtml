@@ -7,13 +7,31 @@
 
 @section Scripts
 {
+    <environment include="Development">
+        <script src="..\..\node_modules\datatables.net\js\jquery.datatables.js"></script>
+        <script src="..\..\node_modules\datatables.net-bs\js\datatables.bootstrap.js"></script>
+        <link href="..\..\node_modules\datatables.net-bs\css\datatables.bootstrap.css" rel="stylesheet"/>
+    </environment>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.css"/>
- 
+
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.js"></script>
+
+    <table class="table" id="restaurants"></table>
+
     <script>
-        $(function(){
-            $.ajax("/api/restaurants/", {method: "get"}).then(function(response){
-                console.log(response);
+        $(function () {
+            var cuisines = ["None", "Indian", "Chinese", "Italian"];
+            $.ajax("/api/restaurants/", { method: "get" }).then(function (response) {
+                $("#restaurants").dataTable({
+                    data: response,
+                    columns: [
+                        { data: "name" },
+                        { data: "location" },
+                        { data: "cuisine", "render": function(cuisineType){
+                            return cuisines[cuisineType];
+                        } }
+                    ]
+                })
             });
         });
     </script>
